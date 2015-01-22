@@ -1,3 +1,12 @@
 body {
     text-align: center;
 }
+.red {
+  background-color: red;
+}
+.green {
+  background-color: green;
+}
+.white {
+  background-color: white;
+}
