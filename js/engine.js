@@ -80,9 +80,24 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
+    function checkCollisions() {
 
+        allEnemies.forEach( function(enemy) {
+            //inside checks whether enemy header is inside the region of player damage            
+            // we have also reduced 20pixels the region of damage to make collisions more visually realistic            
+            var inside = (enemy.x + Helper.getIconsWidth() - 20) > player.x && (enemy.x + Helper.getIconsWidth() + 20) < (player.x + Helper.getIconsWidth());
+            //outside checks if the tail of enemy is inside the region of player damage
+            // we have also reduced 20pixels the region of damage to make collisions more visually realistic
+            var outside = (enemy.x - 20) < player.x || (enemy.x + 20)> (player.x + Helper.getIconsWidth());
+
+            if ( enemy.row === player.col && (inside || !outside)) {  
+                player.alive = false;
+            }
+
+        });
+    }
     /* This is called by the update function  and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
